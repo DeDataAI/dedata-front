@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-02 21:59:59
  * @LastEditors: nickyzhang
- * @LastEditTime: 2024-08-14 23:16:13
+ * @LastEditTime: 2024-08-15 22:42:02
  * @FilePath: /dedata-front/app/components/SideBar.tsx
  * @Description:
  */
@@ -14,16 +14,19 @@ import { MENUS } from '@/app/utils/constant';
 import { useState, useEffect } from 'react';
 import style from '@/app/style/sidebar.module.css';
 import { message } from 'antd';
+import { useAccount } from 'wagmi';
 function SideBar() {
 	const [index, setIndex] = useState(0);
 	const [path, setPath] = useState('/');
 	const pathname = usePathname();
+	const { address } = useAccount();
 
 	useEffect(() => {
 		setPath(pathname);
 	}, [pathname]);
 
 	function onComing() {
+		if (!address) return;
 		message.info('coming soon');
 	}
 	const menus = [];
@@ -31,11 +34,11 @@ function SideBar() {
 	for (const [key, value] of Object.entries(MENUS)) {
 		menus.push(
 			<div key={key}>
-				<div className="text-[0.16rem] leading-[0.21rem] my-[0.26rem]">{key}</div>
+				<div className="text-[0.16rem] leading-[0.20rem] my-[0.20rem]">{key}</div>
 				{value.map((router) => (
 					<div
 						key={router.id}
-						className={`w-full h-[0.48rem] rounded-[0.16rem] flex flex-row items-center pl-[0.16rem] text-[0.14rem] text-[#000] mb-[0.1rem] relative z-1 ${
+						className={`w-full h-[0.36rem] rounded-[0.16rem] flex flex-row items-center pl-[0.16rem] text-[0.14rem] text-[#000] mb-[0.1rem] relative z-1 ${
 							path === router.route ? 'font-bold bg-[#fff]' : null
 						}`}
 					>

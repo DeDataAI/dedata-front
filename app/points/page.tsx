@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-02 21:59:59
  * @LastEditors: nickyzhang
- * @LastEditTime: 2024-08-14 23:05:47
+ * @LastEditTime: 2024-08-28 22:55:45
  * @FilePath: /dedata-front/app/points/page.tsx
  * @Description:
  */
@@ -12,19 +12,13 @@ import { PROMOTION_CHANNELS } from '@/app/utils/constant';
 import Dashboard from '@/app/components/Dashboard';
 import Calendar from '../components/Calendar';
 import Image from 'next/image';
-import { message } from 'antd';
+import Link from 'next/link';
 export default function PointsCenter() {
 	const [applyStatus, setApplyStatus] = useState(false);
-	/**
-	 * role ro language status change
-	 */
-	function jumpChannel(item: { image: string; title: string; icon: string; points: string }) {
-		message.info('Coming soon');
-	}
 
 	const promotionChannels = PROMOTION_CHANNELS.map((item, index) => {
 		return (
-			<div key={index} className="flex flex-col items-center cursor-pointer" onClick={() => jumpChannel(item)}>
+			<Link className="flex flex-col items-center cursor-pointer" target="_blank" href={item.href} key={index}>
 				<Image
 					src={item?.image}
 					alt="channels"
@@ -44,10 +38,10 @@ export default function PointsCenter() {
 					/>
 					<span className="text-[0.14rem] font-bold text-[#333] ml-[0.06rem]">{item.title}</span>
 				</div>
-				<div className="text-[#fff] text-[0.12rem] px-[0.08rem] py-[0.02rem] rounded-[0.2rem] bg-[#3A54DF]">
+				<div className="text-[#fff] text-[0.12rem] px-[0.08rem] py-[0.02rem] rounded-[0.2rem] bg-[#3A54DF] opacity-50">
 					+{item.points} Points
 				</div>
-			</div>
+			</Link>
 		);
 	});
 
@@ -58,7 +52,7 @@ export default function PointsCenter() {
 				<div className="text-[0.16rem] font-bold text-[#000]">Points Center</div>
 				<div className="flex gap-[0.6rem] p-[0.3rem]">
 					{promotionChannels}
-					<div className="w-[1.1rem] h-[1.1rem] rounded-[1.1rem] bg-[#3A54DF] opacity-50 text-[#fff] text-[0.14rem] text-center leading-[1.1rem]">
+					<div className="w-[1.1rem] h-[1.1rem] rounded-[1.1rem] bg-[#3A54DF] opacity-50 text-[#fff] text-[0.14rem] text-center leading-[1.1rem] ml-[0.2rem]">
 						More...
 					</div>
 				</div>
